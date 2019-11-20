@@ -1,0 +1,42 @@
+﻿@model User_Management_System_V2._0.Models.Product
+
+@{
+                /**/
+
+                ViewBag.Title = "RequestItem";
+}
+
+@{
+    if (WebSecurity.CurrentUserName != Model.PostedBy)
+    {
+        <div class="container h-100" style="margin-top:0px">
+            <div class="row align-items-center h-100">
+                <div class="col-12 mx-auto">
+                    <div class="jumbotron text-center">
+                        <h4 class="text-success">Successfully Requested !</h4>
+                        <p class="lead">You have successfully claimed the product. You can see it in your Requested Items section. Once it will get confirmed by admin, you will receive a call. Thank You !</p>
+                        <p class="lead">
+                            <a class="btn btn-primary btn-lg" href="@Url.Action("Index", "Dashboard")" role="button">Go to Dashboard</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="container h-100" >
+            <div class="row align-items-center h-100" >
+                <div class="col-12 mx-auto" style="margin-top:5%;">
+                    <div class="jumbotron text-center" style="margin-top:5%;width:auto;margin-left:12%" >
+                        <h4 class="text-success">Not Possible !</h4>
+                        <p class="lead">You cannot request your item .Please Go back and select items that is not posted by you</p>
+                        <p class="lead">
+                            <a class="btn btn-primary btn-lg" href="@Url.Action("Index", "Dashboard")" role="button">Go to Dashboard</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

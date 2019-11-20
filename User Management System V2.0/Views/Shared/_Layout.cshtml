@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        body
+        {
+            margin:0;
+            padding:0;
+        }
+        .fixednav{
+            position:fixed;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="#">RECMart</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index","Dashboard")">Home </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Register","Account")">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Tnc","Account")">TnC</a>
+                </li>
+
+                @{
+                    if (WebSecurity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("YourRequestedItems","Products")"> Your Cart</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Create","Products")"> Post Ad</a>
+                        </li>
+
+                        @*<li class="nav-item">
+                            <a class="btn btn-danger ml-3" href="@Url.Action("SignOut","Account")">Sign Out</a>
+                        </li>*@
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                             User: <i class="text-warning">   @WebSecurity.CurrentUserName</i>
+                            </button>
+                            <div class="dropdown-menu">
+
+                                <a class="dropdown-item" href="#">Edit Profile</a>
+                                <a class="dropdown-item" href="@Url.Action("SignOut","Account")">Sign Out</a>
+                                
+                            </div>
+                        </div>
+
+
+                    }
+                }
+
+            </ul>
+            @*<form class="form-inline my-2 my-lg-0"  method="get" action="Search">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+
+                    <input type="submit" class="btn btn-outline-success my-2 my-sm-0" value="Search" />
+                </form>*@
+
+            @{ if (WebSecurity.IsAuthenticated)
+                {
+                    using (Html.BeginForm("Search", "Products", FormMethod.Get))
+                    {
+
+                        <div class="dl-horizontal form-inline">
+                            <input type="text" class="form-control mr-sm-2" name="SearchQuery" placeholder="Search">
+                            <input type="submit" class="form-control btn btn-outline-success my-2 my-sm-0" value="Search Local" />
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </nav>
+    <style>
+        .divh:hover {
+            background-color: aquamarine;
+            color: green;
+        }
+
+        .fixeddiv {
+            position: fixed;
+        }
+
+        .active {
+            background-color: aqua;
+            color: black;
+        }
+        .sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  margin-top:58px;
+}
+
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+
+.sidebar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+@@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+@@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+    
+  }
+
+  @@media screen and (max-width:400px)
+  {
+      .sidebar
+      {
+          margin-top:50px;
+      }
+  }
+
+
+
+  
+}
+    </style>
+
+    @*<div class="col-md-2 pr-0 mr-0 fixeddiv" style="margin-top:10px; border-right: 1px solid aqua">
+            <div class="col-md-12" style="height:auto; width:auto; border-bottom:1px solid grey">
+                <br />
+                <br />
+                <center>
+                    <h2>@WebSecurity.CurrentUserName</h2>
+                    <br /><br />
+                </center>
+                <center>
+                    <button class="btn btn-info">Edit Your profile</button>
+                </center>
+                <br />
+            </div>
+
+            @*<div class="card" style="width:200px">
+                    <img class="card-img-top" src="~/Content/TempPics/a.jpg" alt="Card image" height="200px">
+                    <div class="card-body">
+                        <h4 class="card-title">@WebSecurity.CurrentUserName</h4>
+
+                        <a href="#" class="btn btn-primary justify-content-center">Edit Profile</a>
+                    </div>
+                </div>
+            <a href=" @Url.Action("YourAds", "Products") " class="text-decoration-none ">
+                <div class="col-md-12 divh" style="height:70px; width:98%; border-bottom:1px solid grey">
+
+                    <p class="text-lg-center pt-1 h5">Your Advertisements</p>
+                </div>
+            </a>
+            <a href=" @Url.Action("Index", "Dashboard") " class="text-decoration-none ">
+                <div class="col-md-12 divh" style="height:70px; width:98%; border-bottom:1px solid grey">
+                    <p class="text-lg-center pt-1 h5">Latest Added Products</p>
+                </div>
+            </a>
+            <a href=" @Url.Action("LatestSoldOut", "Products") " class="text-decoration-none ">
+                <div class="col-md-12 divh" style="height:70px; width:98%;  border-bottom:1px solid grey">
+                    <p class="text-lg-center pt-1 h5">Latest Sold Out Products</p>
+                </div>
+            </a>
+            <a href=" @Url.Action("FeedbacknComplaints", "Dashboard") " class="text-decoration-none ">
+                <div class="col-md-12 divh" style="height:70px; width:98%;">
+                    <p class="text-lg-center pt-1 h5">Feedback/Complaints</p>
+                </div>
+            </a>
+        </div>*@
+    <div class="sidebar">
+        <a href="@Url.Action("YourAds", "Products") ">Your Ads</a>
+        <a href="@Url.Action("Index", "Dashboard")">Latest Added Products</a>
+        <a href="@Url.Action("LatestSoldOut", "Products") ">Latest Sold Out Products</a>
+        <a href="@Url.Action("FeedbacknComplaints", "Dashboard")">Feedback & Complaints</a>
+    </div>
+
+    <style>
+
+        .divs {
+            margin-left: 250px;
+            margin-top: 58px
+        }
+
+
+        @@media screen and (max-width:400px) {
+            .divs {
+                margin-left: 0px;
+                margin-top: 58px
+            }
+        }
+    </style>
+
+    <div class="ml-0">
+        @RenderBody()
+
+        @*<footer style="margin-left:250px">
+                <p>&copy; @DateTime.Now.Year - Site Created And Maintained By Javed Ansari</p>
+            </footer>*@
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,89 @@
+﻿
+
+@model IEnumerable<User_Management_System_V2._0.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row pr-0 mr-0 divs " style="margin-left:20%; margin-top:0px">
+    <center>
+        <div class="alert alert-danger divs">Edit feature is currently unavailable ! It will be active soon.</div>
+    </center>
+    <div class="col-md-12 ml-0 divs" style="height:auto; width:100%">
+        <h3 style="margin-top:1%">Your Ads</h3>
+        <div class=" row mb-3 justify-content-around">
+            @{
+
+                if (Model.Count() == 0)
+                {
+                    <div class="container h-100" style="margin-top:0px">
+                        <div class="row align-items-center h-100">
+                            <div class="col-12 mx-auto">
+                                <div class="jumbotron text-center">
+                                    <h4 class="text-info">No Ads !</h4>
+                                    <p class="lead"> You have not posted any advertisement.</p>
+                                    <p class="lead">
+                                        <a class="btn btn-primary btn-lg" href="@Url.Action("Create", "Products")" role="button">Post an Ad</a>
+                                    </p>
+
+                                    <h4>OR</h4>
+
+                                    <p class="lead">
+                                        <a class="btn btn-primary btn-lg" href="@Url.Action("Index", "Dashboard")" role="button">Go to Dashboard</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                else
+
+                {
+
+
+                    foreach (var product in Model)
+                    {
+
+                        var base64 = Convert.ToBase64String(product.Photo);
+                        var imgsrc = String.Format("data:image/gif; base64, {0}", base64);
+
+                        <div class="p-2 bd-highlight">
+                            <div class="card border-primary" style="width: 12rem;">
+                                <center>
+                                    <div style="height:150px;width:150px" class="pt-2">
+                                        <img class="card-img-top" src="@imgsrc" alt="Card image cap">
+                                    </div>
+                                    <div class="card-body">
+
+                                        <h5 class="card-title">@product.ProductName</h5>
+                                        <p>Price: @product.PriceExpected</p>
+                                        @{
+                                            if (product.PostedBy == WebSecurity.CurrentUserName)
+                                            {
+                                                <a href="#" class="btn btn-primary disabled">Edit</a>
+                                                <a href="@Url.Action("Delete", "Products", new { id = product.ProductID })" class="btn btn-primary">Delete</a>
+
+                                            }
+                                        }
+                                    </div>
+
+                                </center>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+    <center>
+        <a href="@Url.Action("Index","Dashboard")" class="btn btn-block">Go to Dashboard</a>
+    </center>
+
+
+
+
+

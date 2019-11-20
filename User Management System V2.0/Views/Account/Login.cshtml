@@ -1,0 +1,158 @@
+﻿@model User_Management_System_V2._0.Models.Account.LoginModel
+@using User_Management_System_V2._0.Models
+
+@{
+    ViewBag.Title = "Login";
+
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<style>
+</style>
+
+
+@{
+UserManagementEntities db = new UserManagementEntities();
+                List<Product> products = db.Products.ToList();
+}
+<div class="col-md-12 row" style="margin-top:70px">
+    <div class="col-md-4 border-right mt-2 ">
+        <h2 class="mt-3">Login to Proceed</h2>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal mt-lg-3">
+                <h4></h4>
+                <hr class="mb-5" />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.RememberMe)
+                            @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Sign In" class="btn btn-outline-info" />
+                    </div>
+                </div>
+            </div>
+        }
+        <footer style="">
+            <p>&copy; @DateTime.Now.Year - Site Created And Maintained By Javed Ansari</p>
+        </footer>
+    </div>
+    <div class="col-md-8 mt-2 pl-lg-5 " style="max-width:120%">
+        <div class="card text-white bg-success mb-3 mt-2 ml-3 pt-0 pb-0">
+            <div class="card-header"> Latest Added :</div>
+            <div class="card-body bg-white pr-0 pl-0">
+
+                <p class="card-text">
+                    <marquee onmouseover="this.stop()" onmouseout="this.start()">
+                        @{
+                            foreach (var product in products)
+                            {
+                                if (product.Status == 0)
+                                {
+                                    var base64 = Convert.ToBase64String(product.Photo);
+                                    var imgsrc = String.Format("data:img/gif; base64, {0}", base64);
+                                    <img src="@imgsrc" height="70px" alt="image not available" class="justify-content-center ml-0 mr-0" />
+                                }
+
+                            }
+
+                        }
+
+
+                    </marquee>
+
+            </div>
+
+
+        </div>
+        <div class="card text-white bg-warning mb-3 mt-2 ml-3 pt-0 pb-0">
+            <div class="card-header"> Latest Requested :</div>
+            <div class="card-body bg-white pr-0 pl-0">
+
+                <p class="card-text">
+                    <marquee onmouseover="this.stop()" onmouseout="this.start()">
+                        @{
+                            foreach (var product in products)
+                            {
+                                if (product.Status == 1)
+                                {
+                                    var base64 = Convert.ToBase64String(product.Photo);
+                                    var imgsrc = String.Format("data:img/gif; base64, {0}", base64);
+                                    <img src="@imgsrc" height="70px" alt="image not available" class="justify-content-center ml-0 mr-0" />
+                                }
+
+                            }
+
+                        }
+
+
+                    </marquee>
+
+            </div>
+
+
+        </div>
+        <div class="card text-white bg-danger mb-1 mt-2 ml-3 pt-0 pb-0">
+            <div class="card-header"> Latest Sold Out :</div>
+            <div class="card-body bg-white pr-0 pl-0">
+
+                <p class="card-text">
+                    <marquee onmouseover="this.stop()" onmouseout="this.start()">
+                        @{
+                            foreach (var product in products)
+                            {
+                                if (product.Status == 2)
+                                {
+                                    var base64 = Convert.ToBase64String(product.Photo);
+                                    var imgsrc = String.Format("data:img/gif; base64, {0}", base64);
+                                    <img src="@imgsrc" height="70px" alt="image not available" class="justify-content-center ml-0 mr-0" />
+                                }
+
+                            }
+
+                        }
+
+
+                    </marquee>
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+</div>
+
+

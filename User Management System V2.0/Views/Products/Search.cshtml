@@ -1,0 +1,184 @@
+﻿@model IEnumerable<User_Management_System_V2._0.Models.Product>
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="justify-content-around  " style=" margin-top:0px" >
+    @{ 
+        string SearchQ = Request.QueryString["SearchQuery"];
+    }
+    <h5 "> Results for Search Query ="@SearchQ"</h5>
+</div>
+<div class="row pr-0 mr-0 divs" style="margin-left:;">
+    <div class="col-md-12 ml-0" style="height:auto; width:100%">
+        <div class=" row mb-3 justify-content-around">
+
+
+            @*<p>
+            @using (Html.BeginForm("SearchDD", "Products",FormMethod.Get))
+            {
+                <div class="justify-content-around">
+                    <select name="DD">
+                        <option value="All" selected>All</option>
+                        <option value="LAdded">Latest Added</option>
+                        <option value="LRequested">Latest Requested</option>
+                        <option value="LSold">Latest Sold</option>
+                    </select>
+                </div>
+            }
+
+
+
+
+        </p>*@
+            
+            @foreach (var product in Model)
+            {
+                if (product.Status == 0)
+                {
+                    var base64 = Convert.ToBase64String(product.Photo);
+                    var imgsrc = String.Format("data:image/gif; base64, {0}", base64);
+
+                    <div class="p-2 bd-highlight">
+                        <div class="card border-primary" style="width: 12rem;">
+                            <div class="card-header">Latest Added Products</div>
+                            <center>
+                                <div style="height:150px;width:150px" class="pt-2">
+                                    <img class="card-img-top" src="@imgsrc" alt="Card image cap">
+                                </div>
+                                <div class="card-body">
+
+                                    <h5 class="card-title">@product.ProductName</h5>
+                                    <p>Price: @product.PriceExpected</p>
+                                    <a href="@Url.Action("Description", "Dashboard", new { id = product.ProductID })" class="btn btn-primary">Description</a>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                    @*if (Model.Count == 5)
+                    {
+                        <div class="card-footer justify-content-around">
+                            @Html.ActionLink("See All >>", "SeeAll", "Products");
+                        </div>
+
+                        break;
+                    }*@
+                }
+            }
+
+        </div>
+    </div>
+</div>
+<div class="row pr-0 mr-0 " style="margin-left:250px; margin-top:58px">
+    <div class="col-md-12 ml-0" style="height:auto; width:98%;">
+        <div class=" row mb-3 justify-content-around">
+
+
+           
+
+            @foreach (var product in Model)
+            {
+                if (product.Status == 1)
+                {
+                    var base64 = Convert.ToBase64String(product.Photo);
+                    var imgsrc = String.Format("data:image/gif; base64, {0}", base64);
+
+                    <div class="p-2 bd-highlight">
+                        <div class="card border-primary" style="width: 12rem;">
+                            <div class="card-header">Latest Requested Products</div>
+                            <center>
+
+                                <div style="height:150px;width:150px" class="pt-2">
+
+                                    <img class="card-img-top" src="@imgsrc" alt="Card image cap">
+                                </div>
+                                <div class="card-body">
+
+                                    <h5 class="card-title">@product.ProductName</h5>
+                                    <p>Price: @product.PriceExpected</p>
+                                    <a href="@Url.Action("Description", "Dashboard", new { id = product.ProductID })" class="btn btn-primary">Description</a>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                    @*if (Model.Count == 5)
+                    {
+                        <div class="card-footer justify-content-around">
+                            @Html.ActionLink("See All >>", "SeeAllLR", "Products");
+                        </div>
+
+                        break;
+                    }*@
+                }
+            }
+
+        </div>
+    </div>
+</div>
+<div class="row pr-0 mr-0 " style="margin-left:250px; margin-top:58px">
+    <div class="col-md-12 ml-0" style="height:auto; width:98%;">
+        <div class=" row mb-3 justify-content-around">
+
+
+
+
+            @foreach (var product in Model)
+            {
+                if (product.Status == 2)
+                {
+                    var base64 = Convert.ToBase64String(product.Photo);
+                    var imgsrc = String.Format("data:image/gif; base64, {0}", base64);
+
+                    <div class="p-2 bd-highlight">
+                        <div class="card border-primary" style="width: 12rem;">
+                            <div class="card-header">Latest Sold Products</div>
+                            <center>
+
+                                <div style="height:150px;width:150px" class="pt-2">
+
+                                    <img class="card-img-top" src="@imgsrc" alt="Card image cap">
+                                </div>
+                                <div class="card-body">
+
+                                    <h5 class="card-title">@product.ProductName</h5>
+                                    <p>Price: @product.PriceExpected</p>
+                                    <a href="@Url.Action("Description", "Dashboard", new { id = product.ProductID })" class="btn btn-primary">Description</a>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                    @*if (Model.Count == 5)
+                    {
+                        <div class="card-footer justify-content-around">
+                            @Html.ActionLink("See All >>", "SeeAllLS", "Products");
+                        </div>
+
+                        break;
+                    }*@
+                }
+            }
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@*<div class="container h-100" style="margin-top:100px">
+        <div class="row align-items-center h-100">
+            <div class="col-6 mx-auto">
+                <div class="jumbotron text-center">
+                    <h4 class="text-danger">Search not available !</h4>
+                    <p class="lead"> Sorry ! This feature is not available currently ! Please check after some time. Thanks for your patience.</p>
+                    <p class="lead">
+                        <a class="btn btn-primary btn-lg" href="@Url.Action("Index","Dashboard")" role="button">Go to Dashboard</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>*@
+

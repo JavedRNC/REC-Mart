@@ -1,0 +1,43 @@
+﻿@model IEnumerable<User_Management_System_V2._0.Models.Product>
+
+@{
+    ViewBag.Title = "REC Mart";
+}
+<style>
+   
+</style>
+<div class="row pr-0 mr-0 divs " style="margin-top:0px">
+    <div class="col-md-12 ml-0" style="height:1000px; width:98%;">
+        <h3 style="margin-top:5%;margin-left:20%;">LATEST ADDED PRODUCTS</h3>
+        <div class=" row mb-3 justify-content-around">
+            @foreach (var product in Model)
+            {
+
+                var base64 = Convert.ToBase64String(product.Photo);
+                var imgsrc = String.Format("data:image/gif; base64, {0}", base64);
+
+                <div class="p-2 bd-highlight">
+                    <div class="card border-primary" style="width: 12rem;">
+                        <center>
+                            <div style="height:150px;width:150px" class="pt-2">
+                                <img class="card-img-top" src="@imgsrc" alt="Card image cap">
+                            </div>
+                            <div class="card-body">
+
+                                <h5 class="card-title">@product.ProductName</h5>
+                                <p>Price: @product.PriceExpected</p>
+                                <a href="@Url.Action("Description", "Dashboard", new { id = product.ProductID })" class="btn btn-primary">Description</a>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+            }
+
+
+
+        </div>
+    </div>
+</div>
+
+
+

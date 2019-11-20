@@ -1,0 +1,139 @@
+﻿@model User_Management_System_V2._0.Models.Product
+
+@{
+    ViewBag.Title = "Description";
+}
+
+<h2>Description</h2>
+@*<div class="row justify-content-center align-items-center">
+        <div>
+            <h4>@Model.ProductName</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ProductName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PriceExpected)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PriceExpected)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.OldTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OldTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Photo)
+                </dt>
+
+                <dd>
+                    @{
+                        var base64 = Convert.ToBase64String(Model.Photo);
+                        var imgsrc = String.Format("data:image/gif; base64, {0}", base64);
+                    }
+                    <img src="@imgsrc" width="300" height="300"/>
+
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PostedBy)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PostedBy)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Date)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Date)
+                </dd>
+
+            </dl>
+        </div>
+        <br/>
+        <br />
+        <a class="btn btn-primary" href="@Url.Action( "RequestedItem","Dashboard", new {  id = Model.ProductID })" role="button">Request To buy
+        </a>
+        <p>
+            |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+
+    </div>*@
+<center>
+    <table class="table" style="width:50%; margin-top:100px">
+        <tr>
+            <td><b>Product Name:</b></td>
+            <td>@Model.ProductName</td>
+        </tr>
+        <tr>
+            <td><b>Price:</b></td>
+            <td>@Model.PriceExpected</td>
+        </tr>
+        <tr>
+            <td><b>Product Description:</b></td>
+            <td>@Model.Description</td>
+        </tr>
+        <tr>
+            <td><b>Posted By:</b></td>
+            <td>@Model.PostedBy</td>
+        </tr>
+        <tr>
+            <td><b>Date and Time:</b></td>
+            <td>@Model.Date</td>
+        </tr>
+        <tr>
+
+            @{
+                if (Model.Status == 0)
+                {
+                    <td> <a href="@Url.Action("RequestItem", "Products", new { id = Model.ProductID })" class="btn btn-info pr-1"> Request To Buy</a></td>
+
+
+
+                }
+                else if (Model.Status == 1)
+                {
+                    <td> <p class="btn btn-danger pr-1 disabled"> Requested by Someone</p></td>
+                }
+
+                else if (Model.Status == 2)
+                {
+                    <td> <p class="btn btn-danger pr-1 disabled"> Sold Out</p></td>
+                }
+            }
+
+
+
+
+            <td>
+                <a href="@Url.Action("Index","Dashboard")" class="btn btn-info pl-1"> Go Back </a>
+            </td>
+        </tr>
+    </table>
+</center>
+
+
